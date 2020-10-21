@@ -57,7 +57,7 @@ struct SessionOptions {
   /// Configuration options.
   ConfigProto config;
 
-  SessionOptions();
+  TF_EXPORT SessionOptions();
 };
 
 }  // end namespace tensorflow
