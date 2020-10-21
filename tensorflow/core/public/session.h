@@ -80,9 +80,9 @@ class DeviceMgr;
 ///
 /// Only one thread must call Close(), and Close() must only be called
 /// after all other calls to Run() have returned.
-class Session {
+TF_EXPORT class Session {
  public:
-  TF_EXPORT Session();
+  Session();
   virtual ~Session();
 
   /// \brief Create the graph to be used for the session.
