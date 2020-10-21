@@ -25,7 +25,7 @@ namespace tensorflow {
 class Env;
 
 /// Configuration information for a Session.
-TF_EXPORT struct SessionOptions {
+ struct TF_EXPORT SessionOptions {
   /// The environment to use.
   Env* env;
 
