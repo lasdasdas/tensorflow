@@ -25,7 +25,7 @@ namespace tensorflow {
 class Env;
 
 /// Configuration information for a Session.
- struct TF_EXPORT SessionOptions {
+ class __declspec(dllexport) SessionOptions {
   /// The environment to use.
   Env* env;
 
