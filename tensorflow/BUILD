@@ -569,7 +569,9 @@ tf_cc_shared_object(
         "//tensorflow:macos": [
             "-Wl,-exported_symbols_list,$(location //tensorflow:tf_exported_symbols.lds)",
         ],
-        "//tensorflow:windows": [],
+        "//tensorflow:windows": [
+        "-Wl,-exported_symbols_list,$(location //tensorflow:tf_exported_symbols_windows.lds
+        ],
         "//conditions:default": [
             "-z defs",
             "-Wl,--version-script,$(location //tensorflow:tf_version_script.lds)",
