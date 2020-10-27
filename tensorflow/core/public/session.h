@@ -80,7 +80,7 @@ class DeviceMgr;
 ///
 /// Only one thread must call Close(), and Close() must only be called
 /// after all other calls to Run() have returned.
-class Session {
+TF_EXPORT  class Session {
  public:
   Session();
   virtual ~Session();
@@ -238,7 +238,7 @@ class Session {
 /// `*out_session`, the caller will take ownership of the returned
 /// `*out_session`, and this function will return `OK()`. Otherwise, this
 /// function will return an error status and set *out_session to nullptr.
-Status NewSession(const SessionOptions& options, Session** out_session);
+Status TF_EXPORT  NewSession(const SessionOptions& options, Session** out_session);
 
 /// \brief Resets resource containers associated with a target.
 ///
@@ -275,7 +275,7 @@ Status Reset(const SessionOptions& options,
 ///
 /// *Strongly prefer* the version of NewSession that returns Status,
 /// which contains more helpful error information.
-Session* NewSession(const SessionOptions& options);
+TF_EXPORT  Session* NewSession(const SessionOptions& options);
 
 }  // end namespace tensorflow
 

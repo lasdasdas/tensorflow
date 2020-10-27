@@ -569,7 +569,10 @@ tf_cc_shared_object(
         "//tensorflow:macos": [
             "-Wl,-exported_symbols_list,$(location //tensorflow:tf_exported_symbols.lds)",
         ],
-        "//tensorflow:windows": [],
+        "//tensorflow:windows": [
+        "-def:" +  # This line must be directly followed by the exported_symbols_msvc.lds file
+        "$(location //tensorflow:tf_exported_symbols_msvc.lds)",
+        ],
         "//conditions:default": [
             "-z defs",
             "-Wl,--version-script,$(location //tensorflow:tf_version_script.lds)",
@@ -585,6 +588,7 @@ tf_cc_shared_object(
         "//conditions:default": None,
     }),
     deps = [
+        "//tensorflow:tf_exported_symbols_msvc.lds",
         "//tensorflow:tf_exported_symbols.lds",
         "//tensorflow:tf_version_script.lds",
         "//tensorflow/c:c_api",
@@ -687,6 +691,7 @@ exports_files(
     [
         "tf_version_script.lds",
         "tf_exported_symbols.lds",
+        "tf_exported_symbols_msvc.lds",
     ],
 )
 
@@ -703,8 +708,8 @@ genrule(
     mkdir $@
     for f in $(SRCS); do
       d="$${f%/*}"
-      d="$${d#bazel-out*genfiles/}"
-      d="$${d#*external/eigen_archive/}"
+      d="$${d#bazel-out/*/genfiles/}"
+      d="$${d#bazel-out/*/bin/}"
 
       if [[ $${d} == *local_config_* ]]; then
         continue
@@ -716,6 +721,9 @@ genrule(
         if [[ $${TF_SYSTEM_LIBS:-} == *$${extname}* ]]; then
           continue
         fi
+
+        d="$${d#*external/farmhash_archive/src}"
+        d="$${d#*external/$${extname}/}"
       fi
 
       mkdir -p "$@/$${d}"
