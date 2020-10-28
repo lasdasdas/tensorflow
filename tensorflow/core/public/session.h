@@ -26,7 +26,7 @@ limitations under the License.
 #include "tensorflow/core/platform/env.h"
 #include "tensorflow/core/protobuf/config.pb.h"
 #include "tensorflow/core/public/session_options.h"
-
+#include "tensorflow/core/platform/macros.h"
 namespace tensorflow {
 class DeviceMgr;
 
@@ -80,9 +80,9 @@ class DeviceMgr;
 ///
 /// Only one thread must call Close(), and Close() must only be called
 /// after all other calls to Run() have returned.
-TF_EXPORT  class Session {
+class Session {
  public:
-  Session();
+  TF_EXPORT Session();
   virtual ~Session();
 
   /// \brief Create the graph to be used for the session.
@@ -238,7 +238,7 @@ TF_EXPORT  class Session {
 /// `*out_session`, the caller will take ownership of the returned
 /// `*out_session`, and this function will return `OK()`. Otherwise, this
 /// function will return an error status and set *out_session to nullptr.
-Status TF_EXPORT  NewSession(const SessionOptions& options, Session** out_session);
+ TF_EXPORT Status   NewSession(const SessionOptions& options, Session** out_session);
 
 /// \brief Resets resource containers associated with a target.
 ///
